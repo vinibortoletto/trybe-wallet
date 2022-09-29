@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { func, arrayOf, shape, string } from 'prop-types';
+import { func, arrayOf, string } from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrencies } from '../redux/actions';
 
