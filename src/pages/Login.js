@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { func, shape } from 'prop-types';
 import { connect } from 'react-redux';
-import { saveUser } from '../redux/actions';
+import { saveUser } from '../redux/actions/user';
 
 class Login extends Component {
   state = {

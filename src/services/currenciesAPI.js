@@ -1,9 +1,18 @@
 const ENDPOINT = 'https://economia.awesomeapi.com.br/json/all';
 
-const currenciesAPI = async () => {
+export const fetchCurrencies = async () => {
   const response = await fetch(ENDPOINT);
   const data = await response.json();
   return data;
 };
 
-export default currenciesAPI;
+export const fetchCurrenciesCodes = async () => {
+  const currencies = await fetchCurrencies();
+
+  return Object
+    .entries(currencies)
+    .reduce((acc, currency) => {
+      if (currency[0] !== 'USDT') acc.push(currency[1].code);
+      return acc;
+    }, []);
+};

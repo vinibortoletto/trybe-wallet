@@ -1,13 +1,6 @@
-import currenciesAPI from '../../services/currenciesAPI';
-
-export const SAVE_USER = 'SAVE_USER';
-
-export const saveUser = (payload) => ({
-  type: SAVE_USER,
-  payload,
-});
-
-// --------------------------------------
+import {
+  fetchCurrenciesCodes,
+} from '../../services/currenciesAPI';
 
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const RECEIVE_CURRENCIES_WITH_SUCCESS = 'RECEIVE_CURRENCIES_WITH_SUCCESS';
@@ -27,22 +20,21 @@ const receiveCurrenciesWithError = (payload) => ({
   payload,
 });
 
-export const getCurrencies = () => async (dispatch) => {
+export const getCurrenciesCodes = () => async (dispatch) => {
   dispatch(requestCurrencies());
 
   try {
-    const response = await currenciesAPI();
-
-    const currencies = Object
-      .entries(response)
-      .reduce((acc, currency) => {
-        if (currency[1].codein !== 'BRLT') acc.push(currency[1].code);
-        return acc;
-      }, []);
-
-    dispatch(receiveCurrenciesWithSuccess(currencies));
+    const response = await fetchCurrenciesCodes();
+    dispatch(receiveCurrenciesWithSuccess(response));
   } catch (error) {
     dispatch(receiveCurrenciesWithError(error));
     console.log(error);
   }
 };
+
+export const SAVE_NEW_EXPENSE = 'SAVE_NEW_EXPENSE';
+
+export const saveNewExpense = (payload) => ({
+  type: SAVE_NEW_EXPENSE,
+  payload,
+});
