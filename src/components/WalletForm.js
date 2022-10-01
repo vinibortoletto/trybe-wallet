@@ -53,7 +53,7 @@ class WalletForm extends Component {
 
   render() {
     const { handleInputChange, handleFormSubmit } = this;
-    const { currencies, expenses } = this.props;
+    const { currencies } = this.props;
     const {
       value,
       description,
@@ -62,7 +62,6 @@ class WalletForm extends Component {
       tag,
     } = this.state;
 
-    console.log(expenses);
     return (
       <form onSubmit={ handleFormSubmit }>
         <label htmlFor="value">
@@ -102,6 +101,7 @@ class WalletForm extends Component {
               <option
                 key={ code }
                 value={ code }
+                data-testid="currency-option"
               >
                 {code}
               </option>
@@ -118,9 +118,24 @@ class WalletForm extends Component {
             value={ method }
             onChange={ handleInputChange }
           >
-            <option value="Dinheiro">Dinheiro</option>
-            <option value="Cartão de crédito">Cartão de crédito</option>
-            <option value="Cartão de débito">Cartão de débito</option>
+            <option
+              data-testid="method-option"
+              value="Dinheiro"
+            >
+              Dinheiro
+            </option>
+            <option
+              data-testid="method-option"
+              value="Cartão de crédito"
+            >
+              Cartão de crédito
+            </option>
+            <option
+              data-testid="method-option"
+              value="Cartão de débito"
+            >
+              Cartão de débito
+            </option>
           </select>
         </label>
 
@@ -133,11 +148,11 @@ class WalletForm extends Component {
             value={ tag }
             onChange={ handleInputChange }
           >
-            <option value="Alimentação">Alimentação</option>
-            <option value="Lazer">Lazer</option>
-            <option value="Trabalho">Trabalho</option>
-            <option value="Transporte">Transporte</option>
-            <option value="Saúde">Saúde</option>
+            <option data-testid="tag-option" value="Alimentação">Alimentação</option>
+            <option data-testid="tag-option" value="Lazer">Lazer</option>
+            <option data-testid="tag-option" value="Trabalho">Trabalho</option>
+            <option data-testid="tag-option" value="Transporte">Transporte</option>
+            <option data-testid="tag-option" value="Saúde">Saúde</option>
           </select>
         </label>
 
