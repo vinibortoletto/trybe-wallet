@@ -1,5 +1,3 @@
-import mockData from './mockData';
-
 const mockInitialState = {
   user: {
     email: 'test@test.com',
