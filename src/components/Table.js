@@ -3,7 +3,10 @@ import { arrayOf, shape } from 'prop-types';
 import { connect } from 'react-redux';
 
 class Table extends Component {
+  convertToDecimal = (number) => Number(number).toFixed(2);
+
   render() {
+    const { convertToDecimal } = this;
     const { expenses } = this.props;
 
     return (
@@ -22,18 +25,17 @@ class Table extends Component {
           </tr>
         </thead>
         <tbody>
-          {expenses.map((expense) => (
-            <tr key={ expense.id }>
-              <td>{expense.description}</td>
-              <td>{expense.tag}</td>
-              <td>{expense.method}</td>
-              <td>{Number(expense.value).toFixed(2)}</td>
-              <td>{expense.exchangeRates[expense.currency].name}</td>
-              <td>{Number(expense.exchangeRates[expense.currency].ask).toFixed(2)}</td>
-              <td>
-                {(expense.exchangeRates[expense.currency].ask * expense.value)
-                  .toFixed(2)}
-              </td>
+          {expenses.map(({
+            id, description, tag, method, value, exchangeRates, currency,
+          }) => (
+            <tr key={ id }>
+              <td>{description}</td>
+              <td>{tag}</td>
+              <td>{method}</td>
+              <td>{convertToDecimal(value)}</td>
+              <td>{exchangeRates[currency].name}</td>
+              <td>{convertToDecimal(exchangeRates[currency].ask)}</td>
+              <td>{convertToDecimal(exchangeRates[currency].ask * value)}</td>
               <td>Real</td>
               <td>📝 ❌</td>
             </tr>
