@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { arrayOf, shape } from 'prop-types';
+import { arrayOf, shape, func } from 'prop-types';
 import { connect } from 'react-redux';
 import { removeExpense } from '../redux/actions';
 
@@ -30,16 +30,20 @@ class Table extends Component {
             id, description, tag, method, value, exchangeRates, currency,
           }) => (
             <tr key={ id }>
-              <td>{description}</td>
-              <td>{tag}</td>
-              <td>{method}</td>
-              <td>{convertToDecimal(value)}</td>
-              <td>{exchangeRates[currency].name}</td>
-              <td>{convertToDecimal(exchangeRates[currency].ask)}</td>
-              <td>{convertToDecimal(exchangeRates[currency].ask * value)}</td>
-              <td>Real</td>
+              <td data-testid="td-description">{description}</td>
+              <td data-testid="td-tag">{tag}</td>
+              <td data-testid="td-method">{method}</td>
+              <td data-testid="td-value">{convertToDecimal(value)}</td>
+              <td data-testid="td-currencyName">{exchangeRates[currency].name}</td>
+              <td data-testid="td-currencyValue">
+                {convertToDecimal(exchangeRates[currency].ask)}
+              </td>
+              <td data-testid="td-convertedValue">
+                {convertToDecimal(exchangeRates[currency].ask * value)}
+              </td>
+              <td data-testid="td-convertedCurrency">Real</td>
               <td>
-                <button type="button">📝</button>
+                <button data-testid="edit-btn" type="button">📝</button>
                 <button
                   data-testid="delete-btn"
                   type="button"
@@ -70,6 +74,7 @@ class Table extends Component {
 
 Table.propTypes = {
   expenses: arrayOf(shape({})).isRequired,
+  dispatch: func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

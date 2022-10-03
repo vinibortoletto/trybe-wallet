@@ -1,26 +1,5 @@
 import sumTotalExpense from '../helpers/sumTotalExpense';
-import mockData from './helpers/mockData';
-
-const MOCK_EXPENSES = [
-  {
-    value: '10',
-    currency: 'USD',
-    method: 'Dinheiro',
-    tag: 'Alimentação',
-    description: 'Pizza',
-    id: 0,
-    exchangeRates: mockData,
-  },
-  {
-    value: '20',
-    currency: 'USD',
-    method: 'Cartão de crédito',
-    tag: 'Lazer',
-    description: 'Cinema',
-    id: 0,
-    exchangeRates: mockData,
-  },
-];
+import MOCK_EXPENSES from './helpers/mockExpenses';
 
 const MOCK_SUM = 142.59;
 
