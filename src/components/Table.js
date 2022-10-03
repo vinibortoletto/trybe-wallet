@@ -1,19 +1,11 @@
 import React, { Component } from 'react';
+import { arrayOf, shape } from 'prop-types';
+import { connect } from 'react-redux';
 
-/*
-  A tabela deve possuir um cabeçalho com os seguintes valores:
-    - Descrição;
-    - Tag;
-    - Método de pagamento;
-    - Valor;
-    - Moeda;
-    - Câmbio utilizado;
-    - Valor convertido;
-    - Moeda de conversão;
-    - Editar/Excluir.
-*/
 class Table extends Component {
   render() {
+    const { expenses } = this.props;
+
     return (
       <table>
         <thead>
@@ -30,17 +22,22 @@ class Table extends Component {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Descrição</td>
-            <td>Tag</td>
-            <td>Método de pagamento</td>
-            <td>Valor</td>
-            <td>Moeda</td>
-            <td>Câmbio utilizado</td>
-            <td>Valor convertido</td>
-            <td>Moeda de conversão</td>
-            <td>Editar/Excluir</td>
-          </tr>
+          {expenses.map((expense) => (
+            <tr key={ expense.id }>
+              <td>{expense.description}</td>
+              <td>{expense.tag}</td>
+              <td>{expense.method}</td>
+              <td>{Number(expense.value).toFixed(2)}</td>
+              <td>{expense.exchangeRates[expense.currency].name}</td>
+              <td>{Number(expense.exchangeRates[expense.currency].ask).toFixed(2)}</td>
+              <td>
+                {(expense.exchangeRates[expense.currency].ask * expense.value)
+                  .toFixed(2)}
+              </td>
+              <td>Real</td>
+              <td>📝 ❌</td>
+            </tr>
+          ))}
         </tbody>
       </table>
 
@@ -48,4 +45,12 @@ class Table extends Component {
   }
 }
 
-export default Table;
+Table.propTypes = {
+  expenses: arrayOf(shape({})).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
+
+export default connect(mapStateToProps)(Table);
