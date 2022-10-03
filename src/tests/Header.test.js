@@ -26,6 +26,6 @@ describe('Header', () => {
     const { totalExpense } = mockInitialState.wallet;
     const totalExpenseElement = screen.getByTestId('total-field');
     expect(totalExpenseElement).toBeInTheDocument();
-    expect(totalExpenseElement.innerHTML).toBe(totalExpense.toString());
+    expect(totalExpenseElement.innerHTML).toBe(totalExpense.toFixed(2));
   });
 });

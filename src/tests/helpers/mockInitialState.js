@@ -24,7 +24,7 @@ const mockInitialState = {
     expenses: [],
     editor: false,
     idToEdit: 0,
-    totalExpense: 0,
+    totalExpense: 0.00,
   },
 };
 

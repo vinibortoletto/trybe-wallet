@@ -34,7 +34,14 @@ export const getCurrenciesCodes = () => async (dispatch) => {
 
 export const SAVE_NEW_EXPENSE = 'SAVE_NEW_EXPENSE';
 
-export const saveNewExpense = (payload) => ({
+export const saveNewExpense = (newExpense) => ({
   type: SAVE_NEW_EXPENSE,
-  payload,
+  newExpense,
+});
+
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
+
+export const removeExpense = (expenseId) => ({
+  type: REMOVE_EXPENSE,
+  expenseId,
 });

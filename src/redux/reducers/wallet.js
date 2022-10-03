@@ -1,9 +1,10 @@
-import convertExpense from '../../helpers/convertExpense';
+import sumTotalExpense from '../../helpers/sumTotalExpense';
 import {
   REQUEST_CURRENCIES,
   RECEIVE_CURRENCIES_WITH_SUCCESS,
   RECEIVE_CURRENCIES_WITH_ERROR,
   SAVE_NEW_EXPENSE,
+  REMOVE_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -36,8 +37,20 @@ const wallet = (state = INITIAL_STATE, action) => {
   case SAVE_NEW_EXPENSE:
     return {
       ...state,
-      expenses: [...state.expenses, action.payload],
-      totalExpense: state.totalExpense + convertExpense(action.payload),
+      expenses: [
+        ...state.expenses,
+        action.newExpense,
+      ],
+      totalExpense: sumTotalExpense([...state.expenses, action.newExpense]),
+    };
+
+  case REMOVE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== action.expenseId),
+      totalExpense: sumTotalExpense(
+        state.expenses.filter((expense) => expense.id !== action.expenseId),
+      ),
     };
 
   default:

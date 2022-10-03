@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { arrayOf, shape } from 'prop-types';
 import { connect } from 'react-redux';
+import { removeExpense } from '../redux/actions';
 
 class Table extends Component {
   convertToDecimal = (number) => Number(number).toFixed(2);
 
   render() {
     const { convertToDecimal } = this;
-    const { expenses } = this.props;
+    const { expenses, dispatch } = this.props;
 
     return (
       <table>
@@ -37,7 +38,16 @@ class Table extends Component {
               <td>{convertToDecimal(exchangeRates[currency].ask)}</td>
               <td>{convertToDecimal(exchangeRates[currency].ask * value)}</td>
               <td>Real</td>
-              <td>📝 ❌</td>
+              <td>
+                <button type="button">📝</button>
+                <button
+                  data-testid="delete-btn"
+                  type="button"
+                  onClick={ () => dispatch(removeExpense(id)) }
+                >
+                  ❌
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -46,6 +56,17 @@ class Table extends Component {
     );
   }
 }
+
+/*
+
+  - Após o botão ser clicado, a seguintes ações deverão ocorrer:
+
+    [x] A despesa deverá ser deletada do estado global
+
+    [ ] A despesa deixará de ser exibida na tabela
+
+    [ ] O valor total exibido no header será alterado.
+*/
 
 Table.propTypes = {
   expenses: arrayOf(shape({})).isRequired,

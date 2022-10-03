@@ -7,18 +7,16 @@ import {
 } from '../redux/actions';
 import { fetchCurrencies } from '../services/currenciesAPI';
 
-class WalletForm extends Component {
-  constructor(props) {
-    super(props);
+const INITIAL_STATE = {
+  value: '',
+  currency: 'USD',
+  method: 'Dinheiro',
+  tag: 'Alimentação',
+  description: '',
+};
 
-    this.state = {
-      value: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
-      description: '',
-    };
-  }
+class WalletForm extends Component {
+  state = { ...INITIAL_STATE };
 
   componentDidMount() {
     const { dispatch } = this.props;
@@ -42,13 +40,7 @@ class WalletForm extends Component {
       }),
     );
 
-    this.setState({
-      value: '',
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
-    });
+    this.setState({ ...INITIAL_STATE });
   };
 
   render() {
