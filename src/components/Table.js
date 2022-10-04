@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { arrayOf, shape, func } from 'prop-types';
 import { connect } from 'react-redux';
-import { removeExpense } from '../redux/actions';
+import { removeExpense, toggleEditingMode } from '../redux/actions';
 
 class Table extends Component {
   convertToDecimal = (number) => Number(number).toFixed(2);
@@ -26,28 +26,36 @@ class Table extends Component {
           </tr>
         </thead>
         <tbody>
-          {expenses.map(({
-            id, description, tag, method, value, exchangeRates, currency,
-          }) => (
-            <tr key={ id }>
-              <td data-testid="td-description">{description}</td>
-              <td data-testid="td-tag">{tag}</td>
-              <td data-testid="td-method">{method}</td>
-              <td data-testid="td-value">{convertToDecimal(value)}</td>
-              <td data-testid="td-currencyName">{exchangeRates[currency].name}</td>
+          {expenses.map((expense) => (
+            <tr key={ expense.id }>
+              <td data-testid="td-description">{expense.description}</td>
+              <td data-testid="td-tag">{expense.tag}</td>
+              <td data-testid="td-method">{expense.method}</td>
+              <td data-testid="td-value">{convertToDecimal(expense.value)}</td>
+              <td data-testid="td-currencyName">
+                {expense.exchangeRates[expense.currency].name}
+              </td>
               <td data-testid="td-currencyValue">
-                {convertToDecimal(exchangeRates[currency].ask)}
+                {convertToDecimal(expense.exchangeRates[expense.currency].ask)}
               </td>
               <td data-testid="td-convertedValue">
-                {convertToDecimal(exchangeRates[currency].ask * value)}
+                {convertToDecimal(
+                  expense.exchangeRates[expense.currency].ask * expense.value,
+                )}
               </td>
               <td data-testid="td-convertedCurrency">Real</td>
               <td>
-                <button data-testid="edit-btn" type="button">📝</button>
+                <button
+                  data-testid="edit-btn"
+                  type="button"
+                  onClick={ () => dispatch(toggleEditingMode(expense)) }
+                >
+                  📝
+                </button>
                 <button
                   data-testid="delete-btn"
                   type="button"
-                  onClick={ () => dispatch(removeExpense(id)) }
+                  onClick={ () => dispatch(removeExpense(expense.id)) }
                 >
                   ❌
                 </button>
@@ -61,17 +69,6 @@ class Table extends Component {
   }
 }
 
-/*
-
-  - Após o botão ser clicado, a seguintes ações deverão ocorrer:
-
-    [x] A despesa deverá ser deletada do estado global
-
-    [ ] A despesa deixará de ser exibida na tabela
-
-    [ ] O valor total exibido no header será alterado.
-*/
-
 Table.propTypes = {
   expenses: arrayOf(shape({})).isRequired,
   dispatch: func.isRequired,
@@ -79,6 +76,7 @@ Table.propTypes = {
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
+  isEditing: state.wallet.isEditing,
 });
 
 export default connect(mapStateToProps)(Table);

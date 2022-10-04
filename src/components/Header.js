@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
-import { shape, string, number } from 'prop-types';
+import { arrayOf, shape, string, number } from 'prop-types';
 import { connect } from 'react-redux';
 import trybeWalletLogo from '../assets/trybe-wallet-logo.png';
 
 class Header extends Component {
+  sumTotalExpense = (expenses) => (
+    expenses
+      .reduce((acc, { value, currency, exchangeRates }) => {
+        const { ask } = exchangeRates[currency];
+        let sum = acc;
+        sum += value * ask;
+        return Number(sum.toFixed(2));
+      }, 0)
+  );
+
   render() {
-    const { user, totalExpense } = this.props;
+    const { sumTotalExpense } = this;
+    const { user, totalExpense, expenses } = this.props;
 
     return (
       <header>
@@ -17,7 +28,7 @@ class Header extends Component {
           <span data-testid="email-field">{user.email}</span>
           <span>
             Despesa total: R$
-            <span data-testid="total-field">{totalExpense.toFixed(2)}</span>
+            <span data-testid="total-field">{sumTotalExpense(expenses).toFixed(2)}</span>
             <span data-testid="header-currency-field">BRL</span>
           </span>
         </div>
@@ -31,11 +42,13 @@ Header.propTypes = {
     email: string,
   }).isRequired,
   totalExpense: number.isRequired,
+  expenses: arrayOf(shape({})).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   user: state.user,
   totalExpense: state.wallet.totalExpense,
+  expenses: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps)(Header);

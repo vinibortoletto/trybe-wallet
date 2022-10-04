@@ -32,6 +32,16 @@ export const getCurrenciesCodes = () => async (dispatch) => {
   }
 };
 
+// -------------------------------------------------------
+
+export const UPDATE_FORM_VALUES = 'UPDATE_FORM_VALUES';
+export const updateFormValues = (newFormValues) => ({
+  type: UPDATE_FORM_VALUES,
+  newFormValues,
+});
+
+// -------------------------------------------------------
+
 export const SAVE_NEW_EXPENSE = 'SAVE_NEW_EXPENSE';
 
 export const saveNewExpense = (newExpense) => ({
@@ -44,4 +54,17 @@ export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 export const removeExpense = (expenseId) => ({
   type: REMOVE_EXPENSE,
   expenseId,
+});
+
+export const TOGGLE_EDITING_MODE = 'TOGGLE_EDITING_MODE';
+export const toggleEditingMode = (expenseToEdit) => ({
+  type: TOGGLE_EDITING_MODE,
+  idToEdit: expenseToEdit.id,
+  expenseToEdit,
+});
+
+export const UPDATE_EXPENSES = 'UPDATE_EXPENSES';
+export const updateExpenses = (newExpenses) => ({
+  type: UPDATE_EXPENSES,
+  newExpenses,
 });
