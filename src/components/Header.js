@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { arrayOf, shape, string, number } from 'prop-types';
+import { arrayOf, shape, string } from 'prop-types';
 import { connect } from 'react-redux';
 import trybeWalletLogo from '../assets/trybe-wallet-logo.png';
 
@@ -16,7 +16,7 @@ class Header extends Component {
 
   render() {
     const { sumTotalExpense } = this;
-    const { user, totalExpense, expenses } = this.props;
+    const { user, expenses } = this.props;
 
     return (
       <header>
@@ -41,13 +41,11 @@ Header.propTypes = {
   user: shape({
     email: string,
   }).isRequired,
-  totalExpense: number.isRequired,
   expenses: arrayOf(shape({})).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   user: state.user,
-  totalExpense: state.wallet.totalExpense,
   expenses: state.wallet.expenses,
 });
 

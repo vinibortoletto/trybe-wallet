@@ -20,12 +20,20 @@ const mockInitialState = {
       'XRP',
       'DOGE',
     ],
-    firstCurrencyCode: 'USD',
     expenses: [],
     editor: false,
     idToEdit: 0,
-    totalExpense: 0.00,
+    isEditing: false,
+
+    formValues: {
+      value: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      description: '',
+    },
   },
+
 };
 
 export default mockInitialState;

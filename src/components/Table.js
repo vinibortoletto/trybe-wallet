@@ -28,22 +28,22 @@ class Table extends Component {
         <tbody>
           {expenses.map((expense) => (
             <tr key={ expense.id }>
-              <td data-testid="td-description">{expense.description}</td>
-              <td data-testid="td-tag">{expense.tag}</td>
-              <td data-testid="td-method">{expense.method}</td>
-              <td data-testid="td-value">{convertToDecimal(expense.value)}</td>
-              <td data-testid="td-currencyName">
+              <td data-testid="tbody-description">{expense.description}</td>
+              <td data-testid="tbody-tag">{expense.tag}</td>
+              <td data-testid="tbody-method">{expense.method}</td>
+              <td data-testid="tbody-value">{convertToDecimal(expense.value)}</td>
+              <td data-testid="tbody-currencyName">
                 {expense.exchangeRates[expense.currency].name}
               </td>
-              <td data-testid="td-currencyValue">
+              <td data-testid="tbody-currencyValue">
                 {convertToDecimal(expense.exchangeRates[expense.currency].ask)}
               </td>
-              <td data-testid="td-convertedValue">
+              <td data-testid="tbody-convertedValue">
                 {convertToDecimal(
                   expense.exchangeRates[expense.currency].ask * expense.value,
                 )}
               </td>
-              <td data-testid="td-convertedCurrency">Real</td>
+              <td data-testid="tbody-convertedCurrency">Real</td>
               <td>
                 <button
                   data-testid="edit-btn"

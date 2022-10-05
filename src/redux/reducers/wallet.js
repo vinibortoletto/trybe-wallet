@@ -1,4 +1,3 @@
-import sumTotalExpense from '../../helpers/sumTotalExpense';
 import {
   REQUEST_CURRENCIES,
   RECEIVE_CURRENCIES_WITH_SUCCESS,
@@ -16,7 +15,6 @@ const INITIAL_STATE = {
   expenses: [],
   editor: false,
   idToEdit: 0,
-  totalExpense: 0,
   isEditing: false,
 
   formValues: {
@@ -49,15 +47,11 @@ const wallet = (state = INITIAL_STATE, action) => {
         ...state.expenses,
         action.newExpense,
       ],
-      totalExpense: sumTotalExpense([...state.expenses, action.newExpense]),
     };
   case REMOVE_EXPENSE:
     return {
       ...state,
       expenses: state.expenses.filter((expense) => expense.id !== action.expenseId),
-      totalExpense: sumTotalExpense(
-        state.expenses.filter((expense) => expense.id !== action.expenseId),
-      ),
     };
   case TOGGLE_EDITING_MODE:
     return {
