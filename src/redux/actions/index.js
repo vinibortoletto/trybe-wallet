@@ -23,24 +23,16 @@ const receiveCurrenciesWithError = (payload) => ({
 export const getCurrenciesCodes = () => async (dispatch) => {
   dispatch(requestCurrencies());
 
-  try {
-    const response = await fetchCurrenciesCodes();
-    dispatch(receiveCurrenciesWithSuccess(response));
-  } catch (error) {
-    dispatch(receiveCurrenciesWithError(error));
-    console.log(error);
-  }
+  const response = await fetchCurrenciesCodes();
+  if (!response.status) dispatch(receiveCurrenciesWithSuccess(response));
+  else dispatch(receiveCurrenciesWithError(response));
 };
-
-// -------------------------------------------------------
 
 export const UPDATE_FORM_VALUES = 'UPDATE_FORM_VALUES';
 export const updateFormValues = (newFormValues) => ({
   type: UPDATE_FORM_VALUES,
   newFormValues,
 });
-
-// -------------------------------------------------------
 
 export const SAVE_NEW_EXPENSE = 'SAVE_NEW_EXPENSE';
 

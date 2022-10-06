@@ -1,29 +1,41 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
 import App from '../App';
 import mockData from './helpers/mockData';
 import mockInitialState from './helpers/mockInitialState';
+import MOCK_INITIAL_STATE_WITH_EXPENSES from './helpers/mockInitialStateWithExpenses';
+import MOCK_NEW_EXPENSE from './helpers/mockNewExpense';
+import MOCK_METHODS from './helpers/mockMethods';
+import MOCK_TAGS from './helpers/mockTags';
 
-const selectOne = 'select-one';
-const cartao = 'Cartão de crédito';
-const alimentacao = 'Alimentação';
+const testInputField = (testid, inputType) => {
+  const inputField = screen.getByTestId(`${testid}-input`);
+  expect(inputField).toBeInTheDocument();
+  expect(inputField.innerHTML).toBe('');
+  expect(inputField.type).toBe(inputType);
+};
+
+const testSelectField = (testid, MOCK) => {
+  const selectField = screen.getByTestId(`${testid}-input`);
+  const optionElements = screen.getAllByTestId(`${testid}-option`);
+  const optionElementsValues = optionElements.map((element) => element.value);
+  expect(selectField).toBeInTheDocument();
+  expect(selectField.type).toBe('select-one');
+  expect(optionElementsValues).toEqual(MOCK);
+  expect(selectField).toHaveValue(optionElementsValues[0]);
+};
 
 describe('WalletForm', () => {
   it('1. should render input "value"', () => {
     renderWithRouterAndRedux(
       <App />,
-      {
-        initialEntries: ['/carteira'],
-        initialState: mockInitialState,
-      },
+      { initialEntries: ['/carteira'],
+        initialState: mockInitialState },
     );
 
-    const valueInput = screen.getByLabelText(/valor/i);
-    expect(valueInput).toBeInTheDocument();
-    expect(valueInput.innerHTML).toBe('');
-    expect(valueInput.type).toBe('number');
+    testInputField('value', 'number');
   });
 
   it('2. should render input "description"', () => {
@@ -35,10 +47,7 @@ describe('WalletForm', () => {
       },
     );
 
-    const descriptionInput = screen.getByLabelText(/descrição/i);
-    expect(descriptionInput).toBeInTheDocument();
-    expect(descriptionInput.innerHTML).toBe('');
-    expect(descriptionInput.type).toBe('text');
+    testInputField('description', 'text');
   });
 
   it('3. should render input "currency"', () => {
@@ -50,14 +59,7 @@ describe('WalletForm', () => {
       },
     );
 
-    const currencyInput = screen.getByLabelText(/moeda/i);
-    expect(currencyInput).toBeInTheDocument();
-    expect(currencyInput.type).toBe(selectOne);
-
-    const optionElements = screen.getAllByTestId('currency-option');
-    const optionElementsValues = optionElements.map((element) => element.value);
-    expect(optionElementsValues).toEqual(mockInitialState.wallet.currencies);
-    expect(currencyInput).toHaveValue(optionElementsValues[0]);
+    testSelectField('currency', mockInitialState.wallet.currencies);
   });
 
   it('4. should render input "method"', () => {
@@ -69,16 +71,7 @@ describe('WalletForm', () => {
       },
     );
 
-    const MOCK_METHODS = ['Dinheiro', cartao, 'Cartão de débito'];
-
-    const methodInput = screen.getByLabelText(/método de pagamento/i);
-    expect(methodInput).toBeInTheDocument();
-    expect(methodInput.type).toBe(selectOne);
-
-    const optionElements = screen.getAllByTestId('method-option');
-    const optionElementsValues = optionElements.map((element) => element.value);
-    expect(optionElementsValues).toEqual(MOCK_METHODS);
-    expect(methodInput).toHaveValue(optionElementsValues[0]);
+    testSelectField('method', MOCK_METHODS);
   });
 
   it('5. should render input "tag"', () => {
@@ -90,22 +83,7 @@ describe('WalletForm', () => {
       },
     );
 
-    const MOCK_TAGS = [
-      alimentacao,
-      'Lazer',
-      'Trabalho',
-      'Transporte',
-      'Saúde',
-    ];
-
-    const tagInput = screen.getByLabelText(/tag/i);
-    expect(tagInput).toBeInTheDocument();
-    expect(tagInput.type).toBe(selectOne);
-
-    const optionElements = screen.getAllByTestId('tag-option');
-    const optionElementsValues = optionElements.map((element) => element.value);
-    expect(optionElementsValues).toEqual(MOCK_TAGS);
-    expect(tagInput).toHaveValue(optionElementsValues[0]);
+    testSelectField('tag', MOCK_TAGS);
   });
 
   it('6. should be able to add new expense', async () => {
@@ -123,11 +101,11 @@ describe('WalletForm', () => {
 
     expect(global.fetch).toHaveBeenCalledTimes(1);
 
-    userEvent.type(screen.getByLabelText(/valor/i), '10');
-    userEvent.type(screen.getByLabelText(/descrição/i), 'Cinema');
-    userEvent.selectOptions(screen.getByLabelText(/moeda/i), 'CAD');
-    userEvent.selectOptions(screen.getByLabelText(/método de pagamento/i), cartao);
-    userEvent.selectOptions(screen.getByLabelText(/tag/i), 'Lazer');
+    userEvent.type(screen.getByLabelText(/valor/i), MOCK_NEW_EXPENSE.value);
+    userEvent.type(screen.getByLabelText(/descrição/i), MOCK_NEW_EXPENSE.description);
+    userEvent.selectOptions(screen.getByLabelText(/moeda/i), MOCK_NEW_EXPENSE.currency);
+    userEvent.selectOptions(screen.getByLabelText(/método de pagamento/i), MOCK_NEW_EXPENSE.method);
+    userEvent.selectOptions(screen.getByLabelText(/tag/i), MOCK_NEW_EXPENSE.tag);
 
     const addButton = screen.getByRole('button', { name: /adicionar despesa/i });
     expect(addButton).toBeInTheDocument();
@@ -142,77 +120,16 @@ describe('WalletForm', () => {
     const convertedValueElement = await screen.findByTestId('tbody-convertedValue');
     const convertedCurrencyElement = await screen.findByTestId('tbody-convertedCurrency');
 
-    expect(descriptionElement.innerHTML).toBe('Cinema');
-    expect(tagElement.innerHTML).toBe('Lazer');
-    expect(methodElement.innerHTML).toBe(cartao);
-    expect(valueElement.innerHTML).toBe('10.00');
-    expect(currencyNameElement.innerHTML).toBe('Dólar Canadense/Real Brasileiro');
-    expect(convertedValueElement.innerHTML).toBe('37.56');
-    expect(convertedCurrencyElement.innerHTML).toBe('Real');
+    expect(descriptionElement.innerHTML).toBe(MOCK_NEW_EXPENSE.description);
+    expect(tagElement.innerHTML).toBe(MOCK_NEW_EXPENSE.tag);
+    expect(methodElement.innerHTML).toBe(MOCK_NEW_EXPENSE.method);
+    expect(valueElement.innerHTML).toBe(Number(MOCK_NEW_EXPENSE.value).toFixed(2));
+    expect(currencyNameElement.innerHTML).toBe(MOCK_NEW_EXPENSE.currencyName);
+    expect(convertedValueElement.innerHTML).toBe(MOCK_NEW_EXPENSE.convertedValue);
+    expect(convertedCurrencyElement.innerHTML).toBe(MOCK_NEW_EXPENSE.convertedCurrency);
   });
 
   it('7. should be able to edit expense', () => {
-    const MOCK_INITIAL_STATE_WITH_EXPENSES = {
-      user: {
-        email: 'test@test.com',
-      },
-      wallet: {
-        currencies: [
-          'USD',
-          'CAD',
-          'GBP',
-          'ARS',
-          'BTC',
-          'LTC',
-          'EUR',
-          'JPY',
-          'CHF',
-          'AUD',
-          'CNY',
-          'ILS',
-          'ETH',
-          'XRP',
-          'DOGE',
-        ],
-        expenses: [
-          {
-            value: '10',
-            currency: 'USD',
-            method: 'Dinheiro',
-            tag: alimentacao,
-            description: 'Pizza',
-            id: 0,
-            exchangeRates: mockData,
-          },
-          {
-            value: '20',
-            currency: 'USD',
-            method: cartao,
-            tag: 'Lazer',
-            description: 'Cinema',
-            id: 1,
-            exchangeRates: mockData,
-          },
-
-        ],
-        editor: false,
-        idToEdit: 0,
-        isEditing: false,
-
-        formValues: {
-          value: '',
-          currency: 'USD',
-          method: 'Dinheiro',
-          tag: alimentacao,
-          description: '',
-        },
-      },
-    };
-
-    global.fetch = jest.fn(() => Promise.resolve({
-      json: () => Promise.resolve(MOCK_INITIAL_STATE_WITH_EXPENSES.wallet.currencies),
-    }));
-
     renderWithRouterAndRedux(
       <App />,
       {
@@ -220,8 +137,6 @@ describe('WalletForm', () => {
         initialState: MOCK_INITIAL_STATE_WITH_EXPENSES,
       },
     );
-
-    expect(global.fetch).toHaveBeenCalledTimes(1);
 
     const editExpenseButtons = screen.getAllByTestId('edit-btn');
     expect(editExpenseButtons).toHaveLength(2);
@@ -233,7 +148,7 @@ describe('WalletForm', () => {
     userEvent.type(screen.getByLabelText(/valor/i), '{selectall}{del}10');
     userEvent.type(screen.getByLabelText(/descrição/i), '{selectall}{del}Cinema');
     userEvent.selectOptions(screen.getByLabelText(/moeda/i), 'CAD');
-    userEvent.selectOptions(screen.getByLabelText(/método de pagamento/i), cartao);
+    userEvent.selectOptions(screen.getByLabelText(/método de pagamento/i), 'Cartão de crédito');
     userEvent.selectOptions(screen.getByLabelText(/tag/i), 'Lazer');
 
     userEvent.click(saveEditedExpenseButton);
@@ -248,10 +163,35 @@ describe('WalletForm', () => {
 
     expect(descriptionElements[1].innerHTML).toBe('Cinema');
     expect(tagElements[1].innerHTML).toBe('Lazer');
-    expect(methodElements[1].innerHTML).toBe(cartao);
+    expect(methodElements[1].innerHTML).toBe('Cartão de crédito');
     expect(valueElements[1].innerHTML).toBe('10.00');
     expect(currencyNameElements[1].innerHTML).toBe('Dólar Canadense/Real Brasileiro');
     expect(convertedValueElements[1].innerHTML).toBe('37.56');
     expect(convertedCurrencyElements[1].innerHTML).toBe('Real');
+  });
+
+  it('8. should throw error from api', async () => {
+    const ENDPOINT = 'https://economia.awesomeapi.com.br/json/all';
+    const error = {
+      status: 404,
+      message: 'Nenhuma rota encontrada',
+      code: 'NotFound',
+    };
+
+    global.fetch = jest.fn(() => Promise.resolve({
+      json: () => Promise.reject(error),
+    }));
+
+    renderWithRouterAndRedux(
+      <App />,
+      {
+        initialEntries: ['/carteira'],
+        initialState: mockInitialState,
+      },
+    );
+
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch).toHaveBeenCalledWith(ENDPOINT);
+    await waitFor(() => expect(screen.getByTestId('currency-input')).toHaveValue('USD'));
   });
 });

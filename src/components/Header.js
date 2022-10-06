@@ -38,9 +38,7 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  user: shape({
-    email: string,
-  }).isRequired,
+  user: shape({ email: string }).isRequired,
   expenses: arrayOf(shape({})).isRequired,
 };
 

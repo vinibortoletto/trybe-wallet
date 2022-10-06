@@ -26,18 +26,10 @@ class WalletForm extends Component {
   }
 
   handleInputChange = ({ target: { name, value } }) => {
-    // const { formValues } = this.props;
-    // this.setState({ [name]: value });
-
     const { dispatch, formValues } = this.props;
     dispatch(updateFormValues({
       ...formValues,
       [name]: value,
-      // value: '',
-      // currency: 'USD',
-      // method: 'Dinheiro',
-      // tag: 'Alimentação',
-      // description: '',
     }));
   };
 
@@ -57,16 +49,6 @@ class WalletForm extends Component {
     const { dispatch, expenses, formValues } = this.props;
     const exchangeRates = await fetchCurrencies();
 
-    // dispatch(
-    //   saveNewExpense({
-    //     ...this.state,
-    //     id: expenses.length,
-    //     exchangeRates,
-    //   }),
-    // );
-
-    // this.setState({ ...INITIAL_STATE });
-
     dispatch(
       saveNewExpense({
         ...formValues,
@@ -74,6 +56,7 @@ class WalletForm extends Component {
         exchangeRates,
       }),
     );
+
     dispatch(updateFormValues({ ...INITIAL_STATE }));
   };
 
@@ -82,7 +65,6 @@ class WalletForm extends Component {
     const {
       currencies,
       isEditing,
-      // editingExpense,
       formValues,
     } = this.props;
 
@@ -93,14 +75,6 @@ class WalletForm extends Component {
       method,
       tag,
     } = formValues;
-
-    // const {
-    //   value,
-    //   description,
-    //   currency,
-    //   method,
-    //   tag,
-    // } = this.state;
 
     return (
       <form
@@ -140,9 +114,9 @@ class WalletForm extends Component {
             value={ currency }
             onChange={ handleInputChange }
           >
-            {currencies.map((code) => (
+            {currencies.map((code, index) => (
               <option
-                key={ code }
+                key={ index }
                 value={ code }
                 data-testid="currency-option"
               >
