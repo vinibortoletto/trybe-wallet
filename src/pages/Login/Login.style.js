@@ -19,6 +19,10 @@ export const Container = styled.div`
   background-color: ${color.white};
   border-radius: ${border_radius.container};
   box-shadow: 0px 0px 20px ${color.shadow};
+
+  ${media(768)} {
+    padding: 5rem 7rem;
+  }
 `;
 
 export const Logo = styled.div`
