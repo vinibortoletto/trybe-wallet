@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Login from './pages/Login';
+import Login from './pages/Login/Login';
 import Wallet from './pages/Wallet';
 import './App.css';
 import Background from './components/Background/Background';

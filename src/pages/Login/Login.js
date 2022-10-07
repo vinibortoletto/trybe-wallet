@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { func, shape } from 'prop-types';
 import { connect } from 'react-redux';
-import { saveUser } from '../redux/actions/user';
+import { saveUser } from '../../redux/actions/user';
+import logo from '../../assets/logo.svg';
+import * as S from './Login.style';
+import InputField from '../../components/InputField/InputField';
 
 class Login extends Component {
   state = {
@@ -15,10 +18,8 @@ class Login extends Component {
     const emailRegex = /\S+@\S+\.\S+/;
     const passwordMinLength = 6;
 
-    const isFormValid = (
-      emailRegex.test(email)
-      && password.length >= passwordMinLength
-    );
+    const isFormValid =
+      emailRegex.test(email) && password.length >= passwordMinLength;
 
     this.setState({ isButtonDisabled: !isFormValid });
   };
@@ -46,40 +47,33 @@ class Login extends Component {
     const { isButtonDisabled, email, password } = this.state;
 
     return (
-      <section>
-        <form onSubmit={ this.handleFormSubmit }>
-          <label htmlFor="email">
-            Email:
-            <input
-              type="email"
-              id="email"
+      <S.Section>
+        <S.Container>
+          <S.Logo>
+            <img src={logo} alt="trybe wallet logo" />
+          </S.Logo>
+
+          <S.Form onSubmit={this.handleFormSubmit}>
+            <InputField
               name="email"
-              value={ email }
-              data-testid="email-input"
-              onChange={ this.handleInputChange }
+              value={email}
+              label="Email"
+              handleInputChange={this.handleInputChange}
             />
-          </label>
 
-          <label htmlFor="password">
-            Senha:
-            <input
-              type="password"
-              id="password"
+            <InputField
               name="password"
-              value={ password }
-              data-testid="password-input"
-              onChange={ this.handleInputChange }
+              value={password}
+              label="Password"
+              handleInputChange={this.handleInputChange}
             />
-          </label>
 
-          <button
-            type="submit"
-            disabled={ isButtonDisabled }
-          >
-            Entrar
-          </button>
-        </form>
-      </section>
+            <S.Button type="submit" disabled={isButtonDisabled}>
+              Entrar
+            </S.Button>
+          </S.Form>
+        </S.Container>
+      </S.Section>
     );
   }
 }

@@ -1,9 +1,11 @@
 import styled from 'styled-components/macro';
 
 export const Container = styled.div`
-  position: absolute;
   width: 100%;
   height: 100%;
+
+  position: absolute;
+  z-index: -1;
 `;
 
 export const Image = styled.img`
