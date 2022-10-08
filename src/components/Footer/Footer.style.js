@@ -4,9 +4,8 @@ import variables from '../../helpers/style/variables.styles';
 const { color, border_radius } = variables;
 
 export const Footer = styled.footer`
-  width: 30%;
   padding: 1rem;
-  margin: 5rem auto 2rem auto;
+  margin: 5rem 0 2rem 0;
 
   display: flex;
   flex-direction: column;

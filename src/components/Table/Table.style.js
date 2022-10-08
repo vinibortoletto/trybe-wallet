@@ -37,7 +37,7 @@ export const Table = styled.table`
   font-weight: bold;
 
   thead th {
-    width: 6rem;
+    width: 10rem;
     height: 3rem;
     padding: 0 0.5rem;
 
