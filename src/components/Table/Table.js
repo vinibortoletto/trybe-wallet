@@ -50,7 +50,7 @@ class Table extends Component {
                   )}
                 </td>
                 <td data-testid="tbody-convertedCurrency">Real</td>
-                <td>
+                <S.ButtonsContainer>
                   <button
                     data-testid="edit-btn"
                     type="button"
@@ -65,7 +65,7 @@ class Table extends Component {
                   >
                     ❌
                   </button>
-                </td>
+                </S.ButtonsContainer>
               </tr>
             ))}
           </tbody>

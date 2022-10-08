@@ -56,3 +56,14 @@ export const Table = styled.table`
     color: ${color.white};
   }
 `;
+
+export const ButtonsContainer = styled.td`
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+
+  button {
+    font-weight: bold;
+    font-size: 1rem;
+  }
+`;
