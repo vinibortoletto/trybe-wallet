@@ -5,6 +5,8 @@ import { saveUser } from '../../redux/actions/user';
 import logo from '../../assets/logo.svg';
 import * as S from './Login.style';
 import InputField from '../../components/InputField/InputField';
+import Field from '../../components/Field/Field';
+import Button from '../../components/Button/Button';
 
 class Login extends Component {
   state = {
@@ -53,25 +55,25 @@ class Login extends Component {
             <img src={logo} alt="trybe wallet logo" />
           </S.Logo>
 
-          <S.Form onSubmit={this.handleFormSubmit}>
-            <InputField
+          <form onSubmit={this.handleFormSubmit}>
+            <Field
+              type="text"
               name="email"
               value={email}
               label="Email"
               handleInputChange={this.handleInputChange}
             />
 
-            <InputField
+            <Field
+              type="password"
               name="password"
               value={password}
-              label="Password"
+              label="Senha"
               handleInputChange={this.handleInputChange}
             />
 
-            <S.Button type="submit" disabled={isButtonDisabled}>
-              Entrar
-            </S.Button>
-          </S.Form>
+            <Button isButtonDisabled={isButtonDisabled}>Entrar</Button>
+          </form>
         </S.Container>
       </S.Section>
     );

@@ -2,7 +2,6 @@ import styled from 'styled-components/macro';
 
 export const Container = styled.div`
   overflow-x: auto;
-  display: none;
 `;
 
 export const Table = styled.table`

@@ -18,7 +18,7 @@ describe('Header', () => {
 
   it('3. should render a logo', () => {
     renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'] });
-    const LOGO = 'trybe-wallet-logo.png';
+    const LOGO = 'logo.svg';
     const logoElement = screen.getByRole('img', { name: /trybe wallet logo/i });
     expect(logoElement.src).toContain(LOGO);
   });
@@ -26,24 +26,18 @@ describe('Header', () => {
   it('4. should render user email', () => {
     const MOCK_USER = { user: { email: 'test@test.com' } };
 
-    renderWithRouterAndRedux(
-      <App />,
-      {
-        initialEntries: ['/carteira'],
-        initialState: MOCK_USER,
-      },
-    );
+    renderWithRouterAndRedux(<App />, {
+      initialEntries: ['/carteira'],
+      initialState: MOCK_USER,
+    });
 
     expect(screen.getByText(MOCK_USER.user.email)).toBeInTheDocument();
   });
 
   it('5. should render total expense as 0.00', () => {
-    renderWithRouterAndRedux(
-      <App />,
-      {
-        initialEntries: ['/carteira'],
-      },
-    );
+    renderWithRouterAndRedux(<App />, {
+      initialEntries: ['/carteira'],
+    });
 
     const totalExpenseElement = screen.getByTestId('total-field');
     expect(totalExpenseElement.innerHTML).toBe('0.00');
@@ -79,13 +73,10 @@ describe('Header', () => {
       },
     };
 
-    renderWithRouterAndRedux(
-      <App />,
-      {
-        initialEntries: ['/carteira'],
-        initialState: MOCK_EXPENSES,
-      },
-    );
+    renderWithRouterAndRedux(<App />, {
+      initialEntries: ['/carteira'],
+      initialState: MOCK_EXPENSES,
+    });
 
     const totalExpenseElement = screen.getByTestId('total-field');
     expect(totalExpenseElement.innerHTML).toBe('142.59');

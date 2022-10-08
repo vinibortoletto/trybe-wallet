@@ -39,18 +39,3 @@ export const Logo = styled.div`
     }
   }
 `;
-
-export const Form = styled.form``;
-
-export const Button = styled.button`
-  width: 100%;
-  background-color: ${color.dark_blue};
-  color: ${color.white};
-  padding: 0.7rem;
-  border-radius: ${border_radius.element};
-  font-weight: bold;
-
-  &:disabled {
-    background-color: ${color.light_grey};
-  }
-`;
