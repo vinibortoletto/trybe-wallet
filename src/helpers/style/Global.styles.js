@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components/macro';
 import { Reset } from './Reset.styles';
 import variables from './variables.styles';
-// import './fonts.css';
 
 const { color, font_family } = variables;
 
