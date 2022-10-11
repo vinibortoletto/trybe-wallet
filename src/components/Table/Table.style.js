@@ -37,8 +37,8 @@ export const Table = styled.table`
   font-weight: bold;
 
   thead th {
-    width: 10rem;
-    height: 3rem;
+    width: 7rem;
+    height: 4rem;
     padding: 0 0.5rem;
 
     vertical-align: middle;
@@ -49,7 +49,7 @@ export const Table = styled.table`
   }
 
   tbody td {
-    height: 3rem;
+    height: 4rem;
     vertical-align: middle;
     border-top: 1px solid ${color.light_green};
     text-align: center;
