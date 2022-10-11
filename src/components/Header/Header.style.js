@@ -11,6 +11,10 @@ export const Header = styled.header`
   gap: 2rem;
   margin-bottom: 2rem;
 
+  svg {
+    margin-right: 0.5rem;
+  }
+
   ${media(768)} {
     svg {
       font-size: 1.5rem;
@@ -26,29 +30,6 @@ export const Header = styled.header`
 
 export const Logo = styled.img`
   width: 14rem;
-`;
-
-export const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-
-  svg {
-    margin-right: 0.5rem;
-  }
-
-  ${media(768)} {
-    width: 100%;
-    max-width: 40rem;
-    flex-direction: row;
-    justify-content: space-between;
-
-    svg {
-      font-size: 1.5rem;
-    }
-  }
 `;
 
 export const TotalExpense = styled.p`

@@ -6,6 +6,7 @@ const { color, border_radius } = variables;
 
 export const Container = styled.div`
   width: 90%;
+  max-width: 1700px;
   padding: 33rem 2rem 5rem 2rem;
   overflow-x: auto;
   margin: auto;

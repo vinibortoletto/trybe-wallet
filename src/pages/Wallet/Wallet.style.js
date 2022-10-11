@@ -6,6 +6,7 @@ const { color, border_radius } = variables;
 
 export const Wrapper = styled.div`
   width: 80%;
+  max-width: 1500px;
   background-color: ${color.white};
   border-radius: 0 0 ${border_radius.container} ${border_radius.container};
   padding: 5rem 2rem;

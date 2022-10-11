@@ -22,21 +22,21 @@ class Header extends Component {
       <S.Header>
         <S.Logo src={trybeWalletLogo} alt="trybe wallet logo" />
 
-        <S.Content>
-          <S.TotalExpense>
-            <FaCoins />
-            <S.TotalExpenseText>Despesa total: </S.TotalExpenseText>
-            <span data-testid="total-field">
-              {sumTotalExpense(expenses).toFixed(2)}
-            </span>
-            <span data-testid="header-currency-field">BRL</span>
-          </S.TotalExpense>
+        <S.TotalExpense>
+          <FaCoins />
+          <S.TotalExpenseText>Despesa total: </S.TotalExpenseText>
+    
+          <span data-testid="total-field">
+            {sumTotalExpense(expenses).toFixed(2)}
+          </span>
+    
+          <span data-testid="header-currency-field">BRL</span>
+        </S.TotalExpense>
 
-          <S.Email data-testid="email-field">
-            <FaUserCircle />
-            {user.email}
-          </S.Email>
-        </S.Content>
+        <S.Email data-testid="email-field">
+          <FaUserCircle />
+          {user.email}
+        </S.Email>
       </S.Header>
     );
   }
