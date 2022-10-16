@@ -1,14 +1,14 @@
 <h4 align="center">
-  <img width="180px" alt="trivia logo" src="https://i.imgur.com/QbrmGNI.png" />
+  <img width="180px" alt="trybe wallet logo" src="https://i.imgur.com/Zrx8New.png" />
   <br /><br />
-  Um jogo de perguntas e respostas.
+  Uma carteira de gerenciamento de gastos.
 </h4>
 
 <hr />
 
 <p align="center">
-  <a href="https://mytriviagame.vercel.app/">
-      <img alt="website mockup" src="https://i.imgur.com/qzJvT4o.png" />    
+  <a href="https://mytrybewallet.vercel.app/">
+      <img alt="website mockup" src="https://i.imgur.com/656wvtY.png" />    
   </a>
 </p>
 
@@ -25,7 +25,7 @@ Esse projeto foi desenvolvido usando as seguintes tecnologias:
 -  [React.js](https://reactjs.org/)
 -  [Redux](https://redux.js.org/)
 -  [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
--  [TailwindCSS](https://tailwindcss.com/)
+-  [StyledComponent](https://styled-components.com/)
 -  [Figma](https://figma.com/)
 -  [VS Code](https://code.visualstudio.com/)
 
