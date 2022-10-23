@@ -7,7 +7,7 @@
 <hr />
 
 <p align="center">
-  <a href="https://mytrybewallet.vercel.app/">
+  <a href="https://vini-trybe-wallet.vercel.app/">
       <img alt="website mockup" src="https://i.imgur.com/656wvtY.png" />    
   </a>
 </p>
@@ -15,7 +15,7 @@
 <p align="center">
   <a href="#rocket-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#information_source-como-usar">Como usar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="https://mytrybewallet.vercel.app/">Visite o app</a>
+  <a href="https://vini-trybe-wallet.vercel.app/">Visite o app</a>
 </p>
 
 ## :rocket: Tecnologias
@@ -25,7 +25,7 @@ Esse projeto foi desenvolvido usando as seguintes tecnologias:
 -  [React.js](https://reactjs.org/)
 -  [Redux](https://redux.js.org/)
 -  [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
--  [StyledComponent](https://styled-components.com/)
+-  [Styled Component](https://styled-components.com/)
 -  [Figma](https://figma.com/)
 -  [VS Code](https://code.visualstudio.com/)
 
@@ -35,7 +35,7 @@ Para clonar e rodar a aplicação, você precisará do [Git](https://git-scm.com
 
 ```bash
 # Clone o repositório
-$ git clone https://github.com/vinibortoletto/trivia-game.git
+$ git clone https://github.com/vinibortoletto/trybe-wallet.git
 
 # Instale as dependências
 $ npm install
